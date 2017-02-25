@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- The icon can be used freely in both personal and commercial projects with no attribution required, but always appreciated. 
+You may NOT sub-license, resell, rent, redistribute or otherwise transfer the icon without express written permission from iconmonstr.com -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="14"
+   height="14"
+   viewBox="0 0 14 14"
+   enable-background="new 0 0 512 512"
+   xml:space="preserve"
+   id="svg3547"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="icon_search.svg"><metadata
+     id="metadata3554"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+     id="defs3552" /><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1055"
+     id="namedview3550"
+     showgrid="false"
+     inkscape:zoom="20.85965"
+     inkscape:cx="26.050165"
+     inkscape:cy="7.0639906"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3547" /><path
+     d="M 5.75 0 C 2.5991035 0 0.03125 2.5365674 0.03125 5.6875 C 0.03125 8.8383966 2.5991377 11.40625 5.75 11.40625 C 6.944321 11.40625 8.0820917 11.035193 9 10.40625 L 12.65625 14.09375 L 14 12.6875 L 10.34375 9.03125 C 11.029342 8.0886749 11.5 6.9395676 11.5 5.6875 C 11.5 2.5365674 8.9009331 0 5.75 0 z M 5.6875 2.625 C 7.2725589 2.625 8.5625 3.9654622 8.5625 5.59375 C 8.5625 7.2220378 7.2725589 8.53125 5.6875 8.53125 C 4.1024411 8.53125 2.84375 7.2220378 2.84375 5.59375 C 2.84375 3.9654622 4.1024411 2.625 5.6875 2.625 z "
+     id="magnifier-2-icon" /></svg>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/alexander/Dropbox/workspace/libs/jogamp-all-platforms/jar/jogl-all.jar"/>
+	<classpathentry kind="lib" path="/home/alexander/Dropbox/workspace/libs/jogamp-all-platforms/jar/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="/home/alexander/Dropbox/workspace/libs/jogamp-all-platforms/jar/gluegen.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ribbon"/>
+	<classpathentry kind="lib" path="/home/alexander/Dropbox/workspace/libs/jogamp-all-platforms/jar/joal.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
