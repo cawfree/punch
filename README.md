@@ -1,5 +1,5 @@
 # punch
-A graphical programming language which uses the [Spatial Programming Paradigm](https://www.scribd.com/document/330109881/On-Spatial-Programming). 
+A graphical programming language which introduces the [Spatial Programming Paradigm](https://www.scribd.com/document/330109881/On-Spatial-Programming). 
 This project is currently **in dev**, so use at your own risk!
 
 ## What's in it for me?
