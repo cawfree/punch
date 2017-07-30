@@ -14,22 +14,16 @@ public final class CState <V extends ILexical, X extends ILexical & IGroup<V>> e
 	
 	/* Member Variables. */
 	private final int                         mX;
-	private final int                         mWidth;
 	private final Map<Integer, List<Cascade>> mCascadeMap;
 	private final Map<Integer, Integer>       mExtensionMap;
 	
-	protected CState(final List<X> pInternals, final int pX, final int pWidth) {
+	protected CState(final List<X> pInternals, final int pX) {
 		/* Supply the Internals. */
 		super(pInternals);
 		/* Initialize Member Variables. */
 		this.mX            = pX;
-		this.mWidth        = pWidth;
 		this.mCascadeMap   = new HashMap<Integer, List<Cascade>>();
 		this.mExtensionMap = new HashMap<Integer, Integer>      ();
-	}
-	
-	public final int getWidth() { 
-		return this.mWidth;
 	}
 	
 	public final int getX() { 

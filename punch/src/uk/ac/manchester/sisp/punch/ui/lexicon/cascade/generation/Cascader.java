@@ -98,36 +98,17 @@ public final class Cascader extends GParser<IDriver, CState<?, ?>> {
 		/* Handle the parent implementation. */
 		super.onStarved(pDataConduit, pExpectedType, pCState, pCompilation);
 		/* Initialize the XPosition to Cascade between. We'll start with the current Compilation's XPosition. */
-		      int     lXPosition  = pCompilation.getX();
-		/* Fetch the Index. */
-		final Integer lIndex      = pCompilation.getAbsoluteIndex(); 
-		/* Allocate a boolean to determine if we've hit the finish point for Starved Cascade Generation. */
-		      boolean lIsFinished = false;
-		/* Fetch the Cascade in the current context. */
-		final Cascade lCascade    = DataUtils.getLastElementOf(pCState.getCascadeMap().get(lIndex));
-		/* Determine if there's an existing Starved Cascade within the current state. */
-		if(DataUtils.isNotNull(lCascade) && DataUtils.isNull(lCascade.getSourceConduit())) { 
-			/* Just extend this one. */
-			lCascade.setWidth(lXPosition - lCascade.getX());
-			/* Update the ExtensionMap. */
-			pCState.getExtensionMap().put(lIndex, (lCascade.getX() + lCascade.getWidth()));
-		}
-		else {
-			/* We're going to iterate the whole CascadeStack and buffer starved Cascades. */
-			for(int i = 0; i < this.getStateStack().size() && !lIsFinished; i++) { 
-				/* Fetch the CState. */
-				final CState<?, ?>  lCState      = this.getStateStack().get(i);
-				/* Fetch the Progression. */
-				final int           lProgression = lCState.getExtensionMap().get(lIndex);
-				/* Fetch the Cascades at this Index. */
-				final List<Cascade> lCascades    = lCState.getCascadeMap().get(lIndex);
-				/* Determine if we're finished. (This is where we find an existing driver.) */
-				                    lIsFinished |= !lCascades.isEmpty();
-				/* Insert a Cascade. */
-				this.onInsertCascade(null, pDataConduit, lXPosition - lProgression, pCompilation.getAbsoluteIndex(), lCState, pCompilation);
-				/* Update the XPosition for the next State. */
-				lXPosition = lProgression;
-			}
+		int lXPosition = pCompilation.getX();
+		/* We're going to iterate the whole CascadeStack and buffer starved Cascades. */
+		for(int i = 0; i < this.getStateStack().size(); i++) { 
+			/* Fetch the CState. */
+			final CState<?, ?> lCState      = this.getStateStack().get(i);
+			/* Fetch the Progression. */
+			final int          lProgression = lCState.getExtensionMap().get(pCompilation.getAbsoluteIndex());
+			/* Insert a Cascade. */
+			this.onInsertCascade(null, pDataConduit, lXPosition - lProgression, pCompilation.getAbsoluteIndex(), lCState, pCompilation);
+			/* Update the XPosition for the next State. */
+			lXPosition = lProgression;
 		}
 	}
 	
@@ -189,8 +170,8 @@ public final class Cascader extends GParser<IDriver, CState<?, ?>> {
 			for(final Entry<Integer, Integer> lEntrySet : pCState.getExtensionMap().entrySet()) { 
 				/* Fetch the last-most Cascade at this Index. */
 				final Cascade lCascade = DataUtils.getLastElementOf(this.getStateStack().peek().getCascadeMap().get(lEntrySet.getKey()));
-				/* Ensure the Cascade isn't null and it isn't a Starved Cascade. */
-				if(DataUtils.isNotNull(lCascade) && !lCascade.isStarved()) {
+				/* Ensure the Cascade isn't null. */
+				if(DataUtils.isNotNull(lCascade)) { 
 					/* Extend the Cascade to the SinkDecoupler boundary. */
 					lCascade.setWidth(pCompilation.getX() - lCascade.getX());
 					/* Initialize a Cascade on the CState. */
@@ -262,7 +243,6 @@ public final class Cascader extends GParser<IDriver, CState<?, ?>> {
 			/* Push the CState back onto the StateStack. */
 			this.getStateStack().push(lCState);
 		}
-		
 	}
 	
 	/* Manages Cascade implementation and graphical context allocation for a Coupling's Cascades. Attempts to reuse Cascades wherever possible. */
@@ -350,32 +330,9 @@ public final class Cascader extends GParser<IDriver, CState<?, ?>> {
 			lHeight -= LexiconGlobal.CODE_DIM_HEIGHT_UNIT;
 			/* Calculate the Index. */
 			final Integer lIndex = ((lHeight / LexiconGlobal.CODE_DIM_HEIGHT_UNIT) + pCompilation.getAbsoluteIndex());
-			/* Determine if it doesn't contain a key. */
-			if(!pCState.getExtensionMap().containsKey(lIndex)) { /** TODO: Do at State Initialization! **/ 
-				/* Initialize the ExtensionMap for this Index. */
-				pCState.getExtensionMap().put(lIndex, pCState.getX());
-			}
-			/* Determine whether the Decoupler feeds at this Index. */
-			if(this.isFeedIndex(pDecoupler, lIndex, pCompilation)) { 
-				/* Initialize this Index on the CState. */
-				pCState.getExtensionMap().put(lIndex, pOffset);
-			}
+			/* Initialize this Index on the CState. */
+			pCState.getExtensionMap().put(lIndex, pOffset);
 		}
-	}
-
-	/* Determine if the Decoupler contains a Contact at the corresponding Index. */
-	private final boolean isFeedIndex(final Decoupler<?> pDecoupler, final Integer pIndex, final Compilation pCompilation) {
-		/* Allocate the Search Metric. */
-		boolean lIsFeeding = false;
-		/* Iterate the Contacts. */
-		for(int i = 0; i < pDecoupler.getUIElements().size() && !lIsFeeding; i++) { 
-			/* Fetch the Contact's Index. */
-			final Integer lIndex     = pCompilation.getSubIndex(this, pDecoupler.getUIElements().get(i));
-			/* Update the Search Metric. */
-			              lIsFeeding = lIndex.equals(pIndex);
-		}
-		/* Return the Search Metric. */
-		return lIsFeeding;
 	}
 	
 	/* Asserts type propagation along the Cascades. */
@@ -552,10 +509,8 @@ public final class Cascader extends GParser<IDriver, CState<?, ?>> {
 
 	/* State Definitions. */
 	@Override protected final <V extends ILexical, X extends ILexical & IGroup<V>> CState<?, ?> onPrepareState(final List<X> pInternals, final LinkedList<CState<?, ?>> pStateStack, final Compilation pCompilation) {
-		/* Fetch the owning Coupling's width. */
-		final int lWidth = this.onDefinePosition(pCompilation.onFetchCoupling(), pCompilation).getWidth();
 		/* Allocate a new CState. */
-		return new CState<V, X>(pInternals, pCompilation.getX(), lWidth);
+		return new CState<V, X>(pInternals, pCompilation.getX());
 	}
 
 }
